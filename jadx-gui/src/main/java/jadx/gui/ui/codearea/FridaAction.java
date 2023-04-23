@@ -116,9 +116,9 @@ public final class FridaAction extends JNodeAction {
 		}
 		return classSnippet + "\n"
 				+ shortClassName + "[\"" + methodName + "\"]" + overload + ".implementation = function (" + args + ") {\n"
-				+ "    console.log(`[Method] " + shortClassName + "." + newMethodName + " is called" + logArgs + "`);\n"
+				+ "    console.log(`start [Method] " + shortClassName + "." + newMethodName + " is called" + logArgs + "`);\n"
 				+ "    let result = this[\"" + methodName + "\"](" + args + ");\n"
-				+ "    console.log(`[Method] " + shortClassName + "." + newMethodName + " result=${result}`);\n"
+				+ "    console.log(`end   [Method] " + shortClassName + "." + newMethodName + " result=${result}`);\n"
 				+ "    return result;\n"
 				+ "};";
 	}
@@ -161,7 +161,7 @@ public final class FridaAction extends JNodeAction {
 		}else {
 			classSnippet = generateClassSnippet(jc);
 		}
-		String printLog = String.format( "console.log(`[Field] %s.%s.value-> ${%s}`);\n", jc.getName(),rawFieldName,fieldName);
+		String printLog = String.format( "console.log(` [Field] %s.%s.value-> ${%s}`);\n", jc.getName(),rawFieldName,fieldName);
 		return String.format("%s\nlet %s = %s.%s.value;\n%s", classSnippet, fieldName, jc.getName(), rawFieldName,printLog);
 	}
 
