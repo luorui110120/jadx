@@ -121,7 +121,7 @@ public final class FridaAction extends JNodeAction {
 		// 		+ "    console.log(`end   [Method] " + shortClassName + "." + newMethodName + " result=${result}`);\n"
 		// 		+ "    return result;\n"
 		// 		+ "};";
-		shortClassName = StringEscapeUtils.escapeEcmaScript(jMth.getJParent().getCls(),getRawName());
+		shortClassName = StringEscapeUtils.escapeEcmaScript(jMth.getJParent().getCls().getRawName());
 		if (methodInfo.isConstructor() || methodInfo.getReturnType() == ArgType.VOID) {
 			// no return value
 			return "Java.use(\"" + shortClassName + ")\"" + "[\"" + methodName + "\"]" + overload + ".implementation = function (" + args + ") {\n"
