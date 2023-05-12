@@ -105,17 +105,32 @@ public final class FridaAction extends JNodeAction {
 		}else {
 			classSnippet = generateClassSnippet(jMth.getJParent());
 		}
+		// if (methodInfo.isConstructor() || methodInfo.getReturnType() == ArgType.VOID) {
+		// 	// no return value
+		// 	return classSnippet + "\n"
+		// 			+ shortClassName + "[\"" + methodName + "\"]" + overload + ".implementation = function (" + args + ") {\n"
+		// 			+ "    console.log(`start [Method] " + shortClassName + "." + newMethodName + " is called" + logArgs + "`);\n"
+		// 			+ "    this[\"" + methodName + "\"](" + args + ");\n"
+		// 			+ "    console.log(`end   [Method] " + shortClassName + "." + newMethodName + " result=void`);\n"
+		// 			+ "};";
+		// }
+		// return classSnippet + "\n"
+		// 		+ shortClassName + "[\"" + methodName + "\"]" + overload + ".implementation = function (" + args + ") {\n"
+		// 		+ "    console.log(`start [Method] " + shortClassName + "." + newMethodName + " is called" + logArgs + "`);\n"
+		// 		+ "    let result = this[\"" + methodName + "\"](" + args + ");\n"
+		// 		+ "    console.log(`end   [Method] " + shortClassName + "." + newMethodName + " result=${result}`);\n"
+		// 		+ "    return result;\n"
+		// 		+ "};";
+		shortClassName = StringEscapeUtils.escapeEcmaScript(jMth.getJParent().getCls(),getRawName());
 		if (methodInfo.isConstructor() || methodInfo.getReturnType() == ArgType.VOID) {
 			// no return value
-			return classSnippet + "\n"
-					+ shortClassName + "[\"" + methodName + "\"]" + overload + ".implementation = function (" + args + ") {\n"
+			return "Java.use(\"" + shortClassName + ")\"" + "[\"" + methodName + "\"]" + overload + ".implementation = function (" + args + ") {\n"
 					+ "    console.log(`start [Method] " + shortClassName + "." + newMethodName + " is called" + logArgs + "`);\n"
 					+ "    this[\"" + methodName + "\"](" + args + ");\n"
 					+ "    console.log(`end   [Method] " + shortClassName + "." + newMethodName + " result=void`);\n"
 					+ "};";
 		}
-		return classSnippet + "\n"
-				+ shortClassName + "[\"" + methodName + "\"]" + overload + ".implementation = function (" + args + ") {\n"
+		return "Java.use(\"" + shortClassName + ")\"" + "[\"" + methodName + "\"]" + overload + ".implementation = function (" + args + ") {\n"
 				+ "    console.log(`start [Method] " + shortClassName + "." + newMethodName + " is called" + logArgs + "`);\n"
 				+ "    let result = this[\"" + methodName + "\"](" + args + ");\n"
 				+ "    console.log(`end   [Method] " + shortClassName + "." + newMethodName + " result=${result}`);\n"
